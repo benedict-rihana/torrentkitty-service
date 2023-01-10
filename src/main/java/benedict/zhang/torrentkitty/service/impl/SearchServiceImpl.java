@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class SearchServiceImpl implements ISearchService {
@@ -17,8 +18,10 @@ public class SearchServiceImpl implements ISearchService {
     @Autowired
     private ITorrentKittyClient torrentKittyClientImpl;
     @Override
-    public List<ISearchResult> search(String key) throws Exception {
-        final var url = api+"/"+key;
+    public List<ISearchResult> search(String key, Integer pageNumber) throws Exception {
+        final var url = Optional.ofNullable(pageNumber).map(number->{
+            return api + "/" + key + "/" + number;
+        }).orElseGet(()->{return api+"/"+key;});
         return torrentKittyClientImpl.request(url);
     }
 }

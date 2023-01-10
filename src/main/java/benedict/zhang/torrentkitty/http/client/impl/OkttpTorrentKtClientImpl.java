@@ -21,21 +21,25 @@ public class OkttpTorrentKtClientImpl implements ITorrentKittyClient {
     @Autowired
     private ISearchResultParser parser;
 
-    public OkttpTorrentKtClientImpl(){
+    public OkttpTorrentKtClientImpl() {
         client = new OkHttpClient();
     }
+
     @Override
-    public List<ISearchResult> request(String url) throws IOException{
+    public List<ISearchResult> request(String url) throws IOException {
         var request = (new Request.Builder()).url(url).build();
-        try(var response = client.newCall(request).execute().body()){
-            return Optional.ofNullable(response).map(resp-> {
-                try {
-                    return parser.parse(response.string());
-                }catch (Exception e){
-                    e.printStackTrace();
-                    return new ArrayList<ISearchResult>();
-                }
-            }).orElseGet(ArrayList::new);
+        try (var response = client.newCall(request).execute()) {
+            final var code = response.code();
+            try (final var body = response.body()) {
+                return Optional.ofNullable(body).map(resp -> {
+                    try {
+                        return parser.parse(resp.string());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        return new ArrayList<ISearchResult>();
+                    }
+                }).orElseGet(ArrayList::new);
+            }
         }
     }
 }

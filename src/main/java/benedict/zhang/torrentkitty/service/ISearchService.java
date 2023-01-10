@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface ISearchService {
 
-    public List<ISearchResult> search(String key) throws Exception;
+    public List<ISearchResult> search(String key, Integer pageNumber) throws Exception;
 }

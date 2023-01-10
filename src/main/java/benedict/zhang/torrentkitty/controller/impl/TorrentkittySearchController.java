@@ -24,7 +24,11 @@ public class TorrentkittySearchController implements ITorrentkittyController {
     @Override
     public IResponse onAction(IRequest request) {
         try{
-            final var results = searchService.search(((SearchRequest)request).getSearchKey());
+            final var searchReq= (SearchRequest)request;
+            final var results = searchService.search(
+                    searchReq.getSearchKey(),
+                    searchReq.getPageNumber()
+            );
             final var response = SearchResponse.createSuccessResponse();
             response.withResults(results);
             return response;
@@ -34,13 +38,19 @@ public class TorrentkittySearchController implements ITorrentkittyController {
         }
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/search/{key}")
-    public ResponseEntity<SearchResponse> search(@PathVariable("key")String key){
-        final var response = (SearchResponse)onAction(SearchRequest.createSearchRequest(key));
+    @RequestMapping(method = RequestMethod.GET, value = "/search/{key}/{page}")
+    public ResponseEntity<SearchResponse> search(@PathVariable("key")String key,
+                                                 @PathVariable("page")Integer page){
+        final var response = (SearchResponse)onAction(SearchRequest.createSearchRequest(key,page));
         if (response.getReponseStatus() == Status.SUCCESS){
             return new ResponseEntity<>(response,HttpStatus.OK);
         }else {
             return new ResponseEntity<>(response,HttpStatus.EXPECTATION_FAILED);
         }
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/search/{key}")
+    public ResponseEntity<SearchResponse> search(@PathVariable("key")String key){
+        return search(key,1);
     }
 }

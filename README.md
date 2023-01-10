@@ -8,7 +8,6 @@ This is a typical SpringBoot Application.
 graph LR;
 
 request(Request) -->controller(Controller) --> service(Service) -->client(Client)
-
 ```
 
 ### Controller
@@ -26,3 +25,11 @@ the http response
 
 
 ## dependencies
+
+## TODO
+
+1. The inside exception is not handled, a class is needed to track the exceptions or errors.
+2. Build & Installation
+3. Unit Testing Code
+4. Url should be configured outside the jar package, `@PropertySource("file:${config.home}/config.properties")`
+5. Search result paging, need to return an indicator if there is a next page.
