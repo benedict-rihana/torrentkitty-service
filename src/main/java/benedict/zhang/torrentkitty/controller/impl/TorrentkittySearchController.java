@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+
 @RestController
 public class TorrentkittySearchController implements ITorrentkittyController {
 
@@ -25,13 +26,11 @@ public class TorrentkittySearchController implements ITorrentkittyController {
     public IResponse onAction(IRequest request) {
         try{
             final var searchReq= (SearchRequest)request;
-            final var results = searchService.search(
+            final var torrentKittyResponse = searchService.search(
                     searchReq.getSearchKey(),
                     searchReq.getPageNumber()
             );
-            final var response = SearchResponse.createSuccessResponse();
-            response.withResults(results);
-            return response;
+            return SearchResponse.createSuccessResponse(torrentKittyResponse);
         }catch (Exception ioException){
             ioException.printStackTrace();
             return SearchResponse.createFailedResponse();

@@ -1,12 +1,12 @@
 package benedict.zhang.torrentkitty.http.client;
 
-import benedict.zhang.torrentkitty.datamodel.ISearchResult;
+import benedict.zhang.torrentkitty.http.client.datamodel.TorrentKittyRequest;
+import benedict.zhang.torrentkitty.http.client.datamodel.TorrentKittyResponse;
 
 import java.io.IOException;
-import java.util.List;
 
 public interface ITorrentKittyClient {
 
-    public List<ISearchResult> request(String url) throws IOException;
+    public TorrentKittyResponse request(TorrentKittyRequest request) throws IOException;
 
 }

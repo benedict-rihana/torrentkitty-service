@@ -1,10 +1,8 @@
 package benedict.zhang.torrentkitty.parser;
 
-import benedict.zhang.torrentkitty.datamodel.ISearchResult;
-
-import java.util.List;
+import benedict.zhang.torrentkitty.parser.impl.ParseResult;
 
 public interface ISearchResultParser {
 
-    public List<ISearchResult> parse(String body);
+    public ParseResult parse(String body);
 }

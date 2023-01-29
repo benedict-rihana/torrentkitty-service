@@ -33,3 +33,4 @@ the http response
 3. Unit Testing Code
 4. Url should be configured outside the jar package, `@PropertySource("file:${config.home}/config.properties")`
 5. Search result paging, need to return an indicator if there is a next page.
+6. Logging - AOP

@@ -33,6 +33,7 @@ dependencies {
     implementation ("org.projectlombok:lombok:1.18.24")
     annotationProcessor ("org.projectlombok:lombok:1.18.24")
     implementation("org.springframework.boot:spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-aop")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.0")

@@ -7,8 +7,6 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -16,7 +14,7 @@ import java.util.Optional;
 public class JSoupSearchResultParser implements ISearchResultParser {
 
     @Override
-    public List<ISearchResult> parse(String body) {
+    public ParseResult parse(String body) {
         final var doc = Jsoup.parse(body);
         final var resultDoc = doc.getElementById(ParserConstants.SEARCH_RESULT_TABLE_ID);
         return Optional.ofNullable(resultDoc)
@@ -24,10 +22,11 @@ public class JSoupSearchResultParser implements ISearchResultParser {
                 .orElseGet(this::createParseFailResult);
     }
 
-    private List<ISearchResult> parseResultTable(Element resultTableElement){
-        return resultTableElement.getElementsByTag(ParserConstants.RESULT_ROW_TAG).stream()
+    private ParseResult parseResultTable(Element resultTableElement){
+        final var results = resultTableElement.getElementsByTag(ParserConstants.RESULT_ROW_TAG).stream()
                 .filter(this::isResultRow)
                 .map(this::parseResultRow).filter(Objects::nonNull).toList();
+        return ParseResult.createParseResult(results);
     }
 
     private ISearchResult parseResultRow(Element row){
@@ -52,7 +51,7 @@ public class JSoupSearchResultParser implements ISearchResultParser {
                 ParserConstants.ACTION_COLUMN_ATTR_VALUE.equals(column.attr(ParserConstants.ACTION_COLUMN_ATTR_KEY));
     }
 
-    private List<ISearchResult> createParseFailResult(){
-        return new ArrayList<>(0);
+    private ParseResult createParseFailResult(){
+        return ParseResult.createFailedResult();
     }
 }
