@@ -31,28 +31,6 @@ public class SearchResponse implements IResponse {
     }
 
     public static SearchResponse createFailedResponse(){
-        final var res = new SearchResponse(Status.FAILED);
-        return res;
+        return new SearchResponse(Status.FAILED);
     }
-
-//    public void withHttpResponse(String httpResponse){
-//        if (Objects.requireNonNull(status) == Status.SUCCESS) {
-//            parse(httpResponse);
-//        }
-//    }
-//
-//    public void withException(Exception exception){
-//        if (Objects.requireNonNull(status) == Status.FAILED) {
-//            failed(exception);
-//        }
-//    }
-//
-//    public void parse(String httpResponse){
-//
-//    }
-//
-//    public void failed(Exception exception){
-//
-//    }
-
 }
