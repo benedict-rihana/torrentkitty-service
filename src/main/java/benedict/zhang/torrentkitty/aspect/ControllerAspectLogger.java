@@ -1,10 +1,9 @@
 package benedict.zhang.torrentkitty.aspect;
 
 import benedict.zhang.torrentkitty.datamodel.impl.SearchResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +13,8 @@ import java.util.Optional;
 @Aspect
 @Component
 @SuppressWarnings("unused")
+@Slf4j
 public class ControllerAspectLogger {
-    private static final Logger logger = LoggerFactory.getLogger(ControllerAspectLogger.class);
 
     @Pointcut(value = "execution ( * benedict.zhang.torrentkitty.controller.impl.*.*(..) )")
     public void controllerRequested() {
@@ -24,20 +23,19 @@ public class ControllerAspectLogger {
 
     @Before("controllerRequested()")
     public void loggingBefore(JoinPoint joinPoint) {
-
-        logger.info("REQUEST " + JoinPoint(joinPoint));
-        //logger.info("request for " + request.toString());
+        log.info("REQUEST " + JoinPoint(joinPoint));
+        //log.info("request for " + request.toString());
     }
 
     @AfterReturning(value = "controllerRequested()", returning = "response")
     public void loggingReturn(JoinPoint joinPoint, Object response) {
-        logger.info("REQUEST " + JoinPoint(joinPoint) + " FINISHED");
-        logger.info("RESPONSE:" + ReturnObjectInfo(response));
+        log.info("REQUEST " + JoinPoint(joinPoint) + " FINISHED");
+        log.info("RESPONSE:" + ReturnObjectInfo(response));
     }
 
     @AfterThrowing(value = "controllerRequested()", throwing = "exception")
     public void loggingException(JoinPoint joinPoint, Exception exception) {
-        logger.error("EXCEPTION OCCUR ON " + JoinPoint(joinPoint), exception);
+        log.error("EXCEPTION OCCUR ON " + JoinPoint(joinPoint), exception);
     }
 
 
@@ -67,7 +65,7 @@ public class ControllerAspectLogger {
         return msgBuilder.toString();
     }
 
-    private String SearchResponseInfo(SearchResponse searchResponse){
+    private String SearchResponseInfo(SearchResponse searchResponse) {
         final var msgBuilder = new StringBuilder();
         final var status = searchResponse.getReponseStatus();
         final var torrentKittyResponse = searchResponse.getTorrentkittyResponse();
