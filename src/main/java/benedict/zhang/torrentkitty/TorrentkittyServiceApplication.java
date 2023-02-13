@@ -2,6 +2,7 @@ package benedict.zhang.torrentkitty;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.PropertySource;
 
@@ -10,8 +11,10 @@ import org.springframework.context.annotation.PropertySource;
 @EnableAspectJAutoProxy
 public class TorrentkittyServiceApplication {
 
+    public static ConfigurableApplicationContext CONTEXT;
+
     public static void main(String[] args) {
-        SpringApplication.run(TorrentkittyServiceApplication.class, args);
+        CONTEXT = SpringApplication.run(TorrentkittyServiceApplication.class, args);
     }
 
 }

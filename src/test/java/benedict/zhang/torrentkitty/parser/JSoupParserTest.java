@@ -12,8 +12,8 @@ public class JSoupParserTest {
     public void test(){
 //        System.out.println(loadContent());
         final var paser = new JSoupSearchResultParser();
-        final var results = paser.parse(loadContent());
-        results.forEach(System.out::println);
+        final var result = paser.parse(loadContent());
+        result.getResultList().forEach(System.out::println);
     }
 
     private String loadContent(){

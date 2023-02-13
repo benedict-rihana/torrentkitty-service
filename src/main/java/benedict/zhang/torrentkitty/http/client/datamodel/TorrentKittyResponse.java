@@ -6,7 +6,6 @@ import lombok.AccessLevel;
 import lombok.Data;
 import lombok.Setter;
 
-import java.util.List;
 import java.util.Optional;
 
 @Data
@@ -63,7 +62,9 @@ public class TorrentKittyResponse {
     }
 
     public Boolean getHasNext(){
-       return  !(Optional.ofNullable(results.getResultList()).map(List::isEmpty).orElse(Boolean.TRUE));
+       return  Optional.ofNullable(results.getResultList()).map(
+               resultList -> resultList.size() == TorrentkittyConfig.getInstance().getMaxCount()
+       ).orElse(false);
     }
 
     public String getErrMsg(){

@@ -29,7 +29,6 @@ public class ControllerAspectLogger {
 
     @AfterReturning(value = "controllerRequested()", returning = "response")
     public void loggingReturn(JoinPoint joinPoint, Object response) {
-        log.info("REQUEST " + JoinPoint(joinPoint) + " FINISHED");
         log.info("RESPONSE:" + ReturnObjectInfo(response));
     }
 
@@ -38,6 +37,10 @@ public class ControllerAspectLogger {
         log.error("EXCEPTION OCCUR ON " + JoinPoint(joinPoint), exception);
     }
 
+    @After(value = "controllerRequested()")
+    public void loggingFinallyAfter(JoinPoint joinPoint){
+        log.info("REQUEST " + JoinPoint(joinPoint) + " FINISHED");
+    }
 
     private String JoinPoint(JoinPoint joinPoint) {
         final var params = Arrays.stream(joinPoint.getArgs()).map(Object::toString).toList();
