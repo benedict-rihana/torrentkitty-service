@@ -7,6 +7,7 @@ import benedict.zhang.torrentkitty.datamodel.Status;
 import benedict.zhang.torrentkitty.datamodel.impl.SearchRequest;
 import benedict.zhang.torrentkitty.datamodel.impl.SearchResponse;
 import benedict.zhang.torrentkitty.service.ISearchService;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
+@AllArgsConstructor(onConstructor_={@Autowired})
 public class TorrentkittySearchController implements ITorrentkittyController {
 
-    @Autowired
+    //@Autowired
     private ISearchService searchService;
+
 
     @Override
     public IResponse onAction(IRequest request) {

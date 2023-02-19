@@ -3,6 +3,7 @@ package benedict.zhang.torrentkitty.http.client.impl;
 import benedict.zhang.torrentkitty.http.client.ITorrentKittyClient;
 import benedict.zhang.torrentkitty.http.client.datamodel.TorrentKittyRequest;
 import benedict.zhang.torrentkitty.http.client.datamodel.TorrentKittyResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -12,6 +13,7 @@ public class TorrentKittyClientImpl implements ITorrentKittyClient {
 
     private final ITorrentKittyClient delegate;
 
+    @Autowired
     public TorrentKittyClientImpl(ITorrentKittyClient delegate){
         this.delegate = delegate;
     }

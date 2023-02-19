@@ -18,12 +18,15 @@ public class OkttpTorrentKtClientImpl implements ITorrentKittyClient {
 
     private final OkHttpClient client;
 
-    @Value("${torrentkitty.search.api}")
+    //@Value("${torrentkitty.search.api}")
     private String api;
-    @Autowired
+
     private ISearchResultParser parser;
 
-    public OkttpTorrentKtClientImpl() {
+    @Autowired
+    public OkttpTorrentKtClientImpl(ISearchResultParser parser, @Value("${torrentkitty.search.api}") String api) {
+        this.api = api;
+        this.parser = parser;
         client = new OkHttpClient();
     }
 
